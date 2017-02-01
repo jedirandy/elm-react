@@ -1,0 +1,27 @@
+{
+  "name": "elm-react",
+  "version": "0.1.0",
+  "description": "Inject Elm modules into React apps",
+  "keywords": [
+    "React",
+    "Elm"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src/",
+    "build": "webpack"
+  },
+  "author": "Sheng Ran <jedirandy@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "eslint": "^3.14.1",
+    "eslint-plugin-react": "^6.9.0",
+    "react": "^15.4.2",
+    "webpack": "^2.2.1"
+  }
+}
