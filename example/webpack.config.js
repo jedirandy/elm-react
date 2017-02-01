@@ -1,30 +1,15 @@
 const path = require('path');
+const HTMLPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: [
+        app: [
             path.resolve(__dirname, 'src/index.js')
         ]
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js',
-        library: 'ElmReact',
-        libraryTarget: 'umd'
-    },
-    externals: {
-        'react': {
-            root: 'React',
-            commonjs2: 'react',
-            commonjs: 'react',
-            amd: 'react'
-        },
-        'react-dom': {
-            root: 'ReactDOM',
-            commonjs2: 'react-dom',
-            commonjs: 'react-dom',
-            amd: 'react-dom'
-        }
+        filename: '[name].js'
     },
     module: {
         loaders: [
@@ -35,8 +20,23 @@ module.exports = {
                     presets: ['es2015', 'react'],
                     plugins: ['transform-object-rest-spread']
                 }
+            },
+            {
+                test: /\.elm$/,
+                loader: 'elm-webpack-loader'
             }
         ]
     },
+    resolve: {
+        modules: [
+            path.resolve(__dirname, 'node_modules')
+        ]
+    },
+    plugins: [
+        new HTMLPlugin({
+            template: path.resolve(__dirname, 'src/index.html'),
+            filename: 'index.html'
+        }),
+    ],
     devtool: 'source-map'
 };
