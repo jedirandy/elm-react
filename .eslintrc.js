@@ -33,6 +33,8 @@ module.exports = {
             "error",
             "always"
         ],
-        "react/jsx-uses-vars": 1
+        "react/jsx-uses-vars": 1,
+        "react/jsx-no-undef": 1,
+        "react/jsx-uses-react": 1
     }
 };

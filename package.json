@@ -6,13 +6,17 @@
     "React",
     "Elm"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/",
     "build": "webpack"
   },
   "author": "Sheng Ran <jedirandy@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jedirandy/elm-react.git"
+  },
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
