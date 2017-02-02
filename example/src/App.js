@@ -19,13 +19,13 @@ export class App extends React.Component {
     }
 }
 
-export default inject({
-    src: Counter,
-    cmds: {
+export default inject(
+    Counter,
+    {
         'inc': 'inc',
         'dec': 'dec'
     },
-    subs: {
+    {
         'notifyInc': 'onInc'
     }
-})(App);
+)(App);
