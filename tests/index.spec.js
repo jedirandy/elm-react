@@ -5,10 +5,10 @@ import { module } from './mockElm';
 
 class _Test extends React.Component {
     render() {
-        const { renderElm } = this.props;
+        const { renderFn } = this.props;
         return (
             <div className="test">
-                { renderElm() }
+                { renderFn() }
             </div>
         );
     }
@@ -16,7 +16,11 @@ class _Test extends React.Component {
     subA() {}
 }
 
-const Test = inject(module, { 'cmdA' : 'cmdA' }, { 'subA' : 'subA' })(_Test);
+const Test = inject(module, {
+    cmds: { 'cmdA' : 'cmdA' },
+    subs: { 'subA' : 'subA' },
+    as: 'renderFn'
+})(_Test);
 
 describe('inject', () => {
     it('mounts elm module', () => {
