@@ -1,6 +1,6 @@
 {
   "name": "elm-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Inject Elm modules into React apps",
   "keywords": [
     "React",
