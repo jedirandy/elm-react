@@ -4,11 +4,11 @@ import { Counter } from './Counter.elm';
 
 export class App extends React.Component {
     render() {
-        const { renderElm } = this.props;
+        const { renderCounter } = this.props;
         return (
             <div className="new-counter">
                 <button onClick={() => this.props.inc(null)}>+</button>
-                    { renderElm() }
+                    { renderCounter() }
                 <button onClick={() => this.props.dec(null)}>-</button>
             </div>
         );
@@ -22,10 +22,13 @@ export class App extends React.Component {
 export default inject(
     Counter,
     {
-        'inc': 'inc',
-        'dec': 'dec'
-    },
-    {
-        'notifyInc': 'onInc'
+        cmds: {
+            'inc': 'inc',
+            'dec': 'dec'
+        },
+        subs: {
+            'notifyInc': 'onInc'
+        },
+        as: 'renderCounter'
     }
 )(App);

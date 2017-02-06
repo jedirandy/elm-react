@@ -1,18 +1,22 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-const inject = (
-    src,
+const inject = (component, {
     cmds = {},
-    subs = {}
-) => Container => {
+    subs = {},
+    as = 'renderElm'
+}) => Container => {
     class ElmContainer extends React.Component {
         render() {
             return <div></div>;
         }
 
+        shouldComponentUpdate() {
+            return false;
+        }
+
         componentDidMount() {
             const node = findDOMNode(this);
-            const elm = src.embed(node, this.props.flags);
+            const elm = component.embed(node, this.props.flags);
             this.props.onDidMount(elm, this);
         }
     }
@@ -33,7 +37,7 @@ const inject = (
 
             return React.createElement(Container, {
                 elm: <ElmContainer onDidMount={elm => this.elm = elm} />,
-                renderElm: (props) => <ElmContainer onDidMount={elm => this.elm = elm} {...props}/>,
+                [as]: (props) => <ElmContainer onDidMount={elm => this.elm = elm} {...props}/>,
                 ref: u => { this.underlying = u; },
                 ...cmdMap
             });
