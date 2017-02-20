@@ -3,7 +3,7 @@ module.exports = function(config) {
         basePath: '.',
         singleRun: false,
         browsers: ['PhantomJS'],
-        frameworks: ['mocha', 'chai'],
+        frameworks: ['mocha', 'chai', 'sinon'],
         files: [
             {
                 pattern: 'tests/*.spec.js',
@@ -24,10 +24,11 @@ module.exports = function(config) {
                         loader: 'babel-loader',
                         query: {
                             presets: ['es2015', 'react'],
-                            plugins: ['transform-object-rest-spread']
+                            plugins: ['transform-object-rest-spread', 'transform-class-properties']
                         }
                     }
-                ]
+                ],
+                noParse: /sinon/
             },
             externals: {
                 'react/addons': true,
@@ -45,7 +46,8 @@ module.exports = function(config) {
             'karma-webpack',
             'karma-mocha',
             'karma-chai',
-            'karma-phantomjs-launcher'
+            'karma-phantomjs-launcher',
+            'karma-sinon'
         ]
     });
 };

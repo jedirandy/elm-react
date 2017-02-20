@@ -1,22 +1,16 @@
-const module = {
-    embed: (node, flags) => {
+const createModule = (nodeId, ports) => {
+    const embed = (node, flags) => {
         const elem = document.createElement('div');
-        elem.setAttribute('id', 'elm-mock');
+        elem.setAttribute('id', nodeId);
         elem.innerHTML = 'Elm';
         node.appendChild(elem);
         return {
             flags,
-            ports: {
-                cmdA: {
-                    send: () => {}
-                },
-                subA: {
-                    subscribe: () => {},
-                    unsubscribe: () => {}
-                }
-            }
+            ports
         };
     }
-};
+    return { embed };
+}
 
-export { module };
+
+export { module, createModule };

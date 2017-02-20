@@ -39,6 +39,7 @@ module.exports = {
         "react/jsx-uses-react": 1
     },
     "globals": {
-        "expect": true
+        "expect": true,
+        "sinon": true
     }
 };
