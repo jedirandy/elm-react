@@ -23,7 +23,7 @@ describe('elm react tests', () => {
     const ports = {
         cmdA: { send: () => {} },
         subA: { subscribe: () => {}, unsubscribe: () => {} }
-    }
+    };
 
     const module = createModule('elm-mock', ports);
 
@@ -67,7 +67,7 @@ describe('elm react tests', () => {
 
     it('add subscriptions when mounted', () => {
         const spied = sinon.spy(ports.subA, 'subscribe');
-        const wrapper = mount(<Test />);
+        mount(<Test />);
         expect(spied.calledOnce).to.equal(true);
     });
 

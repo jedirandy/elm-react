@@ -8,9 +8,9 @@ const createModule = (nodeId, ports) => {
             flags,
             ports
         };
-    }
+    };
     return { embed };
-}
+};
 
 
 export { module, createModule };
