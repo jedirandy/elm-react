@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/jedirandy/elm-react.svg?branch=master)](https://travis-ci.org/jedirandy/elm-react)
 [![npm module](https://badge.fury.io/js/elm-react.svg)](https://www.npmjs.org/package/elm-react)
 
-Connect Elm modules with React apps, Elm commands and subscriptions are injected as React component's properties.
+A library for using Elm modules in your React components
 
 ## Install
 ```sh
@@ -18,17 +18,17 @@ import { ElmModule } from './ElmModule.elm'
 
 class App extends React.Component {
     render() {
-        const { renderFn, handleClick } = this.props;
+        const { renderElm, handleClick } = this.props;
         return (
             <div>
                 <button onClick={() => handleClick()}>Click me</button>
-                { renderFn({ flags: {} }) }
+                { renderElm({ flags: {} }) }
             </div>
         )
     }
 
-    onSub() {
-        // will be called when 'sub' is triggered in the Elm module
+    onScroll(args) {
+        // ...
     }
 }
 
@@ -37,18 +37,18 @@ inject(
     ElmModule,
     // options
     {
-        cmds: {
-            'handleClick': 'cmdA' // will inject handleClick into props, when called, will trigger command 'cmdA'
+        send: {
+          'click': 'handleClick' // Pass 'handleClick' to App's props, which is bound with the 'click' port of ElmModule for sending messages
         },
-        subs: {
-            'sub': 'onSub' // subscribe to 'sub' on the Elm side, the 'onSub' function will be called
+        subscribe: {
+          'scroll': 'onScroll' // subscribe to the 'scroll' port, use 'onScroll' as callback
         },
-        as: 'renderFn' // renderFn will be available in props, to render the Elm module
+        as: 'renderElm' // renderElm will be available in App's props, to render ElmModule
     }
 )(App)
 ```
 
-To see more details, check out the [example](/example) project!
+Check out [this project](/example) for a working example!
 
 ## API
 
@@ -57,10 +57,10 @@ To see more details, check out the [example](/example) project!
 * module: the Elm module to be injected into the React component
 
 * options *(object)*
-   * cmds *(object)* A mapping of Elm commands where the keys are method names to injected into the React component's props, the values are the command names of the Elm module.
+   * send *(object)* Each key-value pair is a mapping from the Elm module's port, to the function name that will be passed to the React component's props, that function can be used to send a message to that port
     
-   * subs *(object)* A mapping of Elm subscriptions where the keys are subscription names of the Elm module, the values are the React component's method names, when subscriptions are triggered, the mapped methods will be called.
+   * subscribe *(object)* Subscribe to an Elm port, each key-value pair is a mapping from the Elm module's port name to the callback name of the React Component 
    
-   * as *(string)* the name for the render method to be injected into the React component's props
+   * as *(string)* the name of the render method to be injected into the React component's props
 
 * component *(React Component)*: the React component into which the Elm module is injected

@@ -2,8 +2,8 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 
 const inject = (component, {
-    cmds = {},
-    subs = {},
+    send = {},
+    subscribe = {},
     as = 'renderElm'
 }) => Container => {
     class ElmContainer extends React.Component {
@@ -31,13 +31,13 @@ const inject = (component, {
         render() {
             // map cmds
             const cmdMap = {};
-            Object.keys(cmds).forEach(from => {
-                cmdMap[from] = (...args) => {
-                    const to = cmds[from];
-                    if (this.elm.ports[to] && this.elm.ports[to].send)
-                        this.elm.ports[to].send.apply(null, args);
+            Object.keys(send).forEach(from => {
+                const to = send[from];
+                cmdMap[to] = (...args) => {
+                    if (this.elm.ports[from] && this.elm.ports[from].send)
+                        this.elm.ports[from].send.apply(null, args);
                     else
-                        throw new Error(`${to} is not a cmd, mapped from ${from}`);
+                        throw new Error(`${from} is not a valid port for sending`);
                 };
             });
 
@@ -50,9 +50,9 @@ const inject = (component, {
         }
 
         componentDidMount() {
-            Object.keys(subs).forEach(from => {
+            Object.keys(subscribe).forEach(from => {
                 if (this.elm) {
-                    const to = subs[from];
+                    const to = subscribe[from];
                     if (typeof this.elm.ports[from] === 'object' && typeof this.wrapped[to] === 'function') {
                         const handler = (...args) => this.wrapped[to](...args);
                         this.elm.ports[from].subscribe(handler);
@@ -62,7 +62,7 @@ const inject = (component, {
                         });
                     }
                     else
-                        throw new Error(`subscription mapping from ${from} to ${to} is not valid`);
+                        throw new Error(`${from} is not a valid port for subscribing`);
                 }
             });
         }

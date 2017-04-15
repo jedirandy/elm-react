@@ -17,17 +17,22 @@ export class App extends React.Component {
     onInc(v) {
         console.log('incrementing', v);
     }
+
+    onDec(v) {
+        console.log('decrementing', v);
+    }
 }
 
 export default inject(
     Counter,
     {
-        cmds: {
+        send: {
             'inc': 'inc',
             'dec': 'dec'
         },
-        subs: {
-            'notifyInc': 'onInc'
+        subscribe: {
+            'notifyInc': 'onInc',
+            'notifyDec': 'onDec'
         },
         as: 'renderCounter'
     }
