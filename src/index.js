@@ -29,11 +29,10 @@ const inject = (component, {
         }
 
         render() {
-            // map cmds
-            const cmdMap = {};
+            const sendables = {};
             Object.keys(send).forEach(from => {
                 const to = send[from];
-                cmdMap[to] = (...args) => {
+                sendables[to] = (...args) => {
                     if (this.elm.ports[from] && this.elm.ports[from].send)
                         this.elm.ports[from].send.apply(null, args);
                     else
@@ -42,10 +41,9 @@ const inject = (component, {
             });
 
             return React.createElement(Container, {
-                elm: <ElmContainer onDidMount={elm => this.elm = elm} />,
                 [as]: (props) => <ElmContainer onDidMount={elm => this.elm = elm} {...props}/>,
                 ref: wrapped => { this.wrapped = wrapped; },
-                ...cmdMap
+                ...sendables
             });
         }
 

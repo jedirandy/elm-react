@@ -1,6 +1,6 @@
 {
   "name": "elm-react",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Use Elm modules in your React components",
   "keywords": [
     "React",
@@ -17,6 +17,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jedirandy/elm-react.git"
+  },
+  "peerDependencies": {
+    "react": "~0.13.x || ~0.14.x || ^15.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -38,9 +41,9 @@
     "karma-webpack": "^2.0.2",
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.14",
-    "react": "^15.4.2",
+    "react": "^15.5.4",
     "react-addons-test-utils": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react-dom": "^15.5.4",
     "sinon": "^1.17.7",
     "webpack": "^2.2.1"
   }
